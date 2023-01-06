@@ -571,16 +571,29 @@ while wait() do
             for i, v in pairs(CashToGet) do
                 if game:GetService("Players").LocalPlayer.Character.Humanoid.Health > 0 then
                     game:GetService("ReplicatedStorage").Events.CZDPZUS:FireServer(v)
-                    wait(2.5)
+                    wait(1.5)
                 end
             end
             game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
         else
-        TargetSafe.Values.Broken.Value = true
-        TargetSafe.MainPart.EffectA.Sparkle.Enabled = false
-        TargetSafe.MainPart.EffectA.Spark.Enabled = true
+            LockPickSafe(TargetSafe)
+            wait(2)
+            local CashToGet = {}
+            for i, v in pairs(game:GetService("Workspace").Filter.SpawnedBread:GetChildren()) do
+                if game:GetService("Players").LocalPlayer.Character.Humanoid.Health > 0 then
+                    if (TargetSafe.PosPart.Position - v.Position).Magnitude < 20 then
+                        table.insert(CashToGet,v)
+                    end
+                end
+            end
+            for i, v in pairs(CashToGet) do
+                if game:GetService("Players").LocalPlayer.Character.Humanoid.Health > 0 then
+                    game:GetService("ReplicatedStorage").Events.CZDPZUS:FireServer(v)
+                    wait(1.5)
+                end
+            end
+            game:GetService("Players").LocalPlayer.Character.Humanoid:UnequipTools()
         end
-
     end
 end
 
